@@ -1,0 +1,9 @@
+# changes background color for the streamlit API
+
+[theme]
+base = "dark"
+primary_color = "#3b9eff"
+background_color = "#0a0e14"
+secondaryBackgroundColor = "#111720"
+textColor="e2eaf4"
+font="sans serif"
