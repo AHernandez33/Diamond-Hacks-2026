@@ -1,0 +1,113 @@
+\documentclass{article}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx} % Required for inserting images
+
+\title{\textbf{Anti O-Reaper AI - Manual}}
+\author{Alejandro Hernandez}
+\date{Diamond Hacks 2026 Project - April 5, 2026}
+
+\begin{document}
+
+\maketitle
+
+\section*{I - Motivation}
+Organic Chemistry is one of the classes that a good amount of STEM majors take at college/university. It is consider to be the "grim reaper" of STEM majors because of the difficulty of the class. In my own personal experience when taking this course (the entire organic chemistry series for an entire academic year), I saw a lot of people struggling in the class.
+\\[2em]
+The main reason is because of how the class works and how it is structured. After completion of general chemistry, people will think that organic chemistry is just an extension of general chemistry but with an emhpasis on organic molecule. This is
+\textbf{true \& false}
+at the same time. It is true because once you get into the organic molecules (molecules that will comprised of at least carbon), you will go back to some content you learned in general chemistry such as basic molecular structure, bonding theory, equilibrium, thermodynamics/kinetics, and more.
+The premise is false at the same time because the course is more conceptual whereas general chemistry is more of a partially memorization based and partially mathematical based in which you
+will have to perform calculations. Organic chemistry might seen as one of the classes that is not math-heavy, but it is highly conceptual and theoretical.
+\\[2em]
+As we are getting with the rise in AI, it is no doubt that students are using AI tools such as Chat-GPT, Copliot, or similar to do their work for them (which is questionable), but at the very least, can be potentially serve as a tutor for them.
+The problem with that is that using the LLM chatbot model isn't enough. It is ambiguous and most of the time, it will yield the wrong answer. This is because the LLM chatbots such as Chat-GPT or Copliot (can be applied to just any chatbot) are not trained to be specialized.
+They are ``digital humans'' that are generalists, where they know everything but master of none. Those chatbots are not specialized and equipped enough commands and other training methods to give out exclusively chemistry-related answers to help and tutor students. Also these chatbots
+are not equipped or at least ill-equipped with visualizations that are helpful for students and people will have to rely on manual visualizations. If thay are stuck on a specific concept in organic chemistry, going to a manual visualization would not help because the student will still not know what is going on,
+therefore there should be something that combines tutoring and visualization to help people explain organic chemistry (specifically on reactions, which is the topic that a lot of students in organic chemistry courses struggle with).
+\\[2em]
+Therefore, I built a AI tutor which not only predict the most probable/major product out of a chemical reaction (providing the substrate, additional reactants and solvents/other factors), but also have a tutoring section in which it
+does the same thing but ask you questions to guide you throughout the question. This is built using the Google Gemini API.
+\\[2em]
+
+\section*{II - Main Step Portion}
+The main step portion is the primary backend portion of the project. This is the AI portion of the project.
+\\[2em]
+The program have 3 seperate classes created: the mechanism step class, the image to SMILES string (simplified molecular input linear entry system style string), and the reaction result class.
+All of those classes binds in with the factors that the chatbot is commanded to do when performing a prediction of the product based on the inputs that the user gives, whether it is tutoring mode or instant prediction
+mode. There are a total of 16 considerations and commands that is imposed on the chatbot to execute the program and act like a tutor.
+\\[2em]
+Not only that but also we incorporate more commands to the Gemini LLM that is embedded with the program (model is 2.5-flash-lite), such as commanding the chatbot to
+only take information from reputable sources, which will cut a lot of the issues with false information that may be given or hallucinations. Commands for tutoring are also given,
+which will enable the chatbot to not give the answr immediately if the user chooses the tutoring guide option, but rather give you a series of questions that will lead you to the answer
+according to the input that you give on the reactants and other starting products and conditions.
+\\[2em]
+The program will ask you to select either the tutoring option or the prediction mode. Both are similar in which the end goal is to predict the product out of an organic reaction, but the prediction mode gives you the answer immediately with expalantion while the tutoring mode
+gives you the answer in a slower manner in which the chatbot will ask you a series of questions that will lead you to getting the correct answer.
+Both options will also give you the option to upload an image of the substrate (or the main starting material), and both ask you for reactants (additional reactants other than the starting material), and solvents (which are secondary reactants, catalysts, UV-light, heat, etc.)
+The program will also give you the steps and the 3D visualization with the slider, everything that is made by RDkit and py3Dmol, which are both libaries that enables the 3D visualization of molecules and their changes (including intermediate steps).
+\\[2em]
+The program will require an API key to run. See IV - Running the program for more detail.
+\\[2em]
+
+\section*{III - Streamlit API Portion}
+The API is created using Streamlit. Streamlit is an open-source Python framework that create websites embedded with AI and machine learning tools without the need for HTML and CSS/Javascript. This streamlines the process to create the site a lot faster while allocating the rest of the time
+on backend development. All of what's created in the main steps file (in github) is then adapted to show on Streamlit. It will give you a simplified UI to manuever around without complications. The user can input any chemical name on the substrates/additional reactants and solvents and it will convert everything to SMILES strings for visualization, UFF (universal force field) optimization,
+also for visualization. The reaction and explanations are handled by the Gemini API. The user will have the option to upload a photo of a molecule for substrate only that will detect the photo and convert it to a SMILES string, which can be used for both the reaction prediction
+via Gemini, and 3D visualization of the reaction.
+\\[2em]
+
+\section*{IV - Running The Program}
+To run the program, you need to do the following:
+\\[2em]
+1 - Make sure everything is installed. Look at all the libraries that were imported. This is all that you need to install via a terminal.
+\\[2em]
+2 - You don't have to run 'main\_steps.py file' but it is highly recommended. An API key is needed to run this file.
+\\[2em]
+3 - Run the dh\_streamlit.py file. An API key is need for this. You need to get your
+\textbf{own} API key as it is different for everyone. To get the API key, go to your Google AI Studio, then look for API keys, and click on the API key. They will give you a line for the API key.
+\\[2em]
+4 - Run this following code in your terminal:
+\\[2em]
+\texttt{\$env:GEMINI\_API\_KEY="your\_real\_api\_key\_here"} \\
+\texttt{py -m streamlit run dh\_streamlit.py}
+\\[1em]
+where your\_real\_api\_key\_here is your actual API key.
+\\[2em]
+5 - Automatically takes you to the websites
+\\[2em]
+6 - Choose either tutoring or predictive mode, enter your reactants, substrates, solvents/other factors, and you are ready to go!
+\\[2em]
+
+\section*{V - Issues}
+Some of the issues I ran into - including but not limited to:
+\\[2em]
+- Various syntax and formatting issues, used Codex to assist on those issues
+\\[1em]
+- The Gemini model used. Originally used Gemini 2.5 Flash, but later changed to the Lite version since I excceeded the requests per day.
+\\[1em]
+- Tried to switch to FastAPI - redunancy
+\\[1em]
+- Electronic structure implementation, which it did not work because it will overcomplicate the process
+\\[1em]
+- Video visualization - this was troubling since it is uncertain due to some SMILES configurations not yielding 3D structures
+\\[2em]
+\section*{VI - Brief Analysis}
+Overall, the model is going well as a prototype, and I learned now how to implement something like Gemini API and create an API that takes everything on it to a website without the need for HTML, CSS, or Javascript
+in terms of web creation. We have some limitations on to yielding results, and I also learned about how AI only works on command. Whenever I hear someone says that AI is useless, it is because it is generic and doesn't 
+train on specialized and specific commands. One can make the AI be helpful to people with the right plan. 
+\\[2em]
+\section*{VII - Future Work}
+This are considered some potential plans for this project:
+\\[2em]
+- Make a subscription system in which users pay money to access the software
+\\[1em]
+- More specialized commands
+\\[1em]
+- Force structure visualization even if the SMILES strings failed rendering the 3D structure
+\\[1em]
+- Add arrows to the mechanism visualization, also make the visualization sliders a lot more smoother and 'video-like'
+\\[1em]
+- Add an option to include photos with all 3 components without needing to manually input reactants and solvents despite having a picture of a substrate. The reason why only the substrate gets the pictire is to test out the image to SMILES string functionality. 
+\\[2em]
+
+\end{document}
